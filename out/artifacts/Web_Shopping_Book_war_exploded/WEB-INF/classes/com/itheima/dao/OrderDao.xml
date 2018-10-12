@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.OrderDao" >
+
+    <insert id="addOrder" parameterType="Order" keyProperty="order_id" useGeneratedKeys="true">
+        insert into t_order(ISBN,bookname,price,photo,username,address)
+        values(#{ISBN},#{bookname},#{price},#{photo},#{username},#{address})
+    </insert>
+
+    <select id="selectOrder" parameterType="Order" resultType="Order">
+        select *from t_order
+    </select>
+
+    <delete id="deleteOrder" parameterType="Integer" >
+        delete from t_order where order_id=#{order_id}
+    </delete>
+
+    <insert id="doAddOrder" parameterType="Order" keyProperty="id" useGeneratedKeys="true">
+        insert into t_order(ISBN,bookname,price,photo,username,address)
+        values(#{ISBN},#{bookname},#{price},#{photo},#{username},#{address})
+    </insert>
+
+    <select id="selectOrderList" parameterType="Order" resultType="order">
+        select * from t_order
+        <where>
+            <choose>
+                <when test="username !=null and username !=''">
+                    and  username like  '%${username}%'
+                </when>
+                <when test="address !=null and address !=''">
+                    and address like  '%${address}%'
+                </when>
+                <when test="bookname !=null and bookname !=''">
+                    and bookname like  '%${bookname}%'
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <select id="findOrderById"  parameterType="Integer" resultType="Order" >
+        SELECT * FROM  t_order where order_id = #{order_id}
+    </select>
+
+    <update id="updateOrder" parameterType="Order">
+        update t_order
+        <set>
+            <if test="ISBN !=null and ISBN !=''">
+                ISBN=#{ISBN},
+            </if>
+            <if test="bookname !=null and bookname !=''">
+                bookname=#{bookname},
+            </if>
+            <if test="price !=null and price !=''">
+                price=#{price},
+            </if>
+            <if test="photo !=null and photo !=''">
+                photo=#{photo},
+            </if>
+            <if test="username !=null and username !=''">
+                username=#{username},
+            </if>
+            <if test="address !=null and address !=''">
+                address=#{address},
+            </if>
+        </set>
+        where order_id = #{order_id}
+    </update>
+
+    <delete id="deleteId" parameterType="Integer" >
+        delete from t_order where order_id=#{order_id}
+    </delete>
+
+</mapper>

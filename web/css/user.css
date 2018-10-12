@@ -1,0 +1,92 @@
+ /*nav top*/
+ #topone{
+     width: 100%;
+     height: 40px;
+     background: #F2F2F2;
+     margin-bottom: 10px;
+     padding-top: 13px;
+ }
+
+ #am{
+     color: #FF0036;
+     font-size: 16px;
+     padding-left: 10px;
+ }
+ #topone a:hover{
+     color: #FF0036;
+ }
+ .nav-btn{
+     font-size: 16px;
+     padding-left: 10px;
+ }
+ .nav-btn:hover{
+     color: #FF0036;
+ }
+ .nav-personal{
+     padding-left: 75%;
+     font-size: 16px;
+ }
+ .nav-personal:hover{
+     color: #FF0036;
+ }
+
+ #tmall-ensure {
+     width: 1190px;
+     height: 100px;
+     background: url(//img.alicdn.com/tfs/TB14dANRXXXXXbdXXXXXXXXXXXX-1190-100.jpg) no-repeat;
+     margin: 25px auto;
+     padding: 0;
+ }
+
+
+ #topone-body{
+     width: 800px;
+     margin:0px auto;
+ }
+
+ /*榜单css*/
+ .nav-spacing{
+  margin-top: 10px;
+
+ }
+.ranking{
+   margin-left: 20px;
+}
+.ranking h2{
+    text-align: center;
+    color: #FF0036;
+    background-color: antiquewhite;
+}
+ .ranking li{
+     border-bottom:1px solid #888888 ;
+ }
+ .ranking li a{
+     padding-left: 10px;
+ }
+ .ranking li a:hover{
+     color: #FF0036;
+ }
+
+ /*选项卡*/
+
+
+ #tmall-copyright {
+     border-top: 2px solid #FF0036;
+     background: #000;
+     text-align: left;
+     min-height: 100px;
+     padding-left: 300px;
+ }
+ #tmall-copyright a{
+     color: #ffffff;
+     font-size: 16px;
+     margin: 5px 5px 5px 5px;
+     text-decoration: none;
+
+ }
+
+ #tmall-copyright p{
+     color: #686868;
+     display: block;
+     font-size: 16px;
+ }

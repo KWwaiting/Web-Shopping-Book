@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.BookDao" >
+
+    <insert id="doAddBook" parameterType="Book" keyProperty="id" useGeneratedKeys="true">
+        insert into book(ISBN,bookname,price,category,content,photo)
+        values(#{ISBN},#{bookname},#{price},#{category},#{content},#{photo})
+    </insert>
+
+    <select id="selectBookList" parameterType="Book" resultType="Book">
+        select * from book
+        <where>
+            <choose>
+                <when test="bookname !=null and bookname !=''">
+                    and  bookname like  '%${bookname}%'
+                </when>
+                <when test="category !=null and category !=''">
+                    and category like  '%${category}%'
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <select id="selectBookAll" parameterType="Book" resultType="Book">
+        select *from book
+    </select>
+
+    <select id="bookSelect" parameterType="Book" resultType="Book">
+        select *from book WHERE  category = "热销书籍"
+    </select>
+
+    <delete id="deleteBook" parameterType="Integer" >
+        delete from book where id=#{id}
+    </delete>
+
+    <select id="findBookById"  parameterType="Integer" resultType="Book" >
+        SELECT * FROM  book where id = #{edit_id}
+    </select>
+
+    <update id="updateBook" parameterType="Book">
+        update book
+        <set>
+            <if test="ISBN !=null and ISBN !=''">
+                ISBN=#{ISBN},
+            </if>
+            <if test="bookname !=null and bookname !=''">
+                bookname=#{bookname},
+            </if>
+            <if test="price !=null and price !=''">
+                price=#{price},
+            </if>
+            <if test="category !=null and category !=''">
+                category=#{category},
+            </if>
+            <if test="content !=null and content !=''">
+                content=#{content},
+            </if>
+            <if test="photo !=null and photo !=''">
+                photo=#{photo},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="selectBook" parameterType="Book" resultType="Book">
+        select *from book WHERE bookname =  #{bookname}
+--         select *from book WHERE bookname like  '%${bookname}%'
+    </select>
+
+    <select id="computerBook" parameterType="Book" resultType="Book">
+        select *from book WHERE category = "计算机"
+    </select>
+</mapper>

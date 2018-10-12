@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.UserDao" >
+    <!-- 查询用户 -->
+    <select id="findUser" parameterType="User" resultType="User">
+	    select *from user where username = '${username}' and psw = '${psw}'
+    </select>
+
+    <insert id="doAdd" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+             insert into user(username,psw,address,phone,email)
+             values(#{username},#{psw},#{address},#{phone},#{email})
+    </insert>
+
+    <select id="selectUserAll" parameterType="User" resultType="User">
+        select *from user
+    </select>
+
+    <select id="selectUserList" parameterType="User" resultType="User">
+          select * from user
+        <where>
+            <choose>
+             <when test="username !=null and username !=''">
+                      and  username like  '%${username}%'
+             </when>
+              <when test="address !=null and address !=''">
+                      and address like  '%${address}%'
+              </when>
+            </choose>
+        </where>
+    </select>
+
+    <insert id="doAddUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username,psw,address,phone,email)
+        values(#{username},#{psw},#{address},#{phone},#{email})
+    </insert>
+
+    <select id="findUserById"  parameterType="Integer" resultType="User" >
+        SELECT * FROM  user where id = #{edit_id}
+    </select>
+
+    <update id="updateUser" parameterType="User">
+       update user
+         <set>
+             <if test="username !=null and username !=''">
+                 username=#{username},
+             </if>
+             <if test="psw !=null and psw !=''">
+                 psw=#{psw},
+             </if>
+             <if test="address !=null and address !=''">
+                 address=#{address},
+             </if>
+             <if test="phone !=null and phone !=''">
+                 phone=#{phone},
+             </if>
+             <if test="email !=null and email !=''">
+                 email=#{email},
+             </if>
+         </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="Integer" >
+        delete from user where id=#{id}
+    </delete>
+
+
+
+    <resultMap type="com.itheima.po.User" id="cardAndInfo2">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="psw" column="psw"/>
+        <result property="address" column="address"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <association property="orders" javaType="Order" >
+            <id property="order_id" column="order_id"/>
+            <result property="ISBN" column="ISBN"/>
+            <result property="bookname" column="bookname"/>
+            <result property="price" column="price"/>
+            <result property="photo" column="photo"/>
+            <result property="username" column="username"/>
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectOne" parameterType="User" resultMap="cardAndInfo2">
+         SELECT users.*,orders.*
+         FROM user users,t_order orders
+         WHERE users.username = orders.username
+         and users.username = '${username}'
+--          AND  users.username LIKE '%${username}%'
+
+    </select>
+</mapper>
